@@ -13,10 +13,76 @@
     <%= f.text_field :name_cont, :class => "form-control", :placeholder => "Name contains" %>
   </div>
 
-        <div class="form-group">
-      <%= f.label :cuisine_name_cont, "Cuisine name contains" %>
-      <%= f.text_field :cuisine_name_cont, :class => "form-control", :placeholder => "Cuisine name contains" %>
-    </div>
+        <div class="checkbox">
+      <%= f.label :cuisine_name_cont, "Cuisine" %>
+      <br>
+      <br>
+       <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="35" />
+              American
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="34" />
+              Breakfast
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="41" />
+              Classic
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="40" />
+              Dessert
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="36" />
+              Drink
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="39" />
+              French
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="44" />
+              Indian
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="37" />
+              Italian
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="42" />
+              Japanese
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="38" />
+              Salad
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="43" />
+              Seafood
+            </label>
+          </div>
+      </div>
 
 
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
