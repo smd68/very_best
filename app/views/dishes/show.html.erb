@@ -53,10 +53,10 @@
             <%= venue.name %>
           </a>
           <div class="btn-group btn-group-xs pull-right">
-            <a href="/venues/<%= venue.id %>/edit" class="btn btn-warning">
+            <a href="/bookmarks/<%= venue.bookmarks.find_by(:dish_id => @dish.id).id %>/edit" class="btn btn-warning">
               <i class="fa fa-edit"></i>
             </a>
-            <a href="/delete_venue/<%= venue.id %>" class="btn btn-danger" rel="nofollow">
+            <a href="/delete_bookmark/<%= venue.bookmarks.find_by(:dish_id => @dish.id).id %>" class="btn btn-danger" rel="nofollow">
               <i class="fa fa-trash-o"></i>
             </a>
           </div>
