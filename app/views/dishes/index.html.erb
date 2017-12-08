@@ -51,42 +51,65 @@
         
         <% @dishes.each do |dish| %>
           <tr>
-          
-            <td>
-              <a href="/dishes/<%=dish.id%>">
-                <%= dish.name %>
-              </a>
-            </td>
-  
-            <td>
-                <form action="/create_bookmark" class="form-inline" method="post">
-                  <!-- Hidden input for authenticity token to protect from forgery -->
-                  <input name="authenticity_token" type="hidden" value="<%=form_authenticity_token%>">
-  
-  
-                  <input type="hidden" name="dish_id" value="<%=dish.id%>">
-                  <input type="hidden" name="user_id" value="<%=current_user.id%>">
-  
-                  <!-- Label and input for venue_id -->
-                  <div class="form-group">
-                    <label for="venue_id" class="control-label sr-only">
-                      Venue
-                    </label>
-                    <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control") %>
-                  </div>
-  
-                  <button class="btn btn-primary btn-sm">
-                    <i class="fa fa-heart"></i>
-                  </button>
-                </form>
-  
-            </td>
-  
-            <td class="text-right">
-              <span class="label label-primary">
-                <%= dish.cuisine.name %>
-              </span>
-            </td>
+            <% if Bookmark.find_by(user_id: current_user.id, dish_id: dish.id) == nil %>          
+              <td>
+                <a href="/dishes/<%=dish.id%>">
+                  <%= dish.name %>
+                </a>
+              </td>
+    
+              <td>
+                  <form action="/create_bookmark" class="form-inline" method="post">
+                    <!-- Hidden input for authenticity token to protect from forgery -->
+                    <input name="authenticity_token" type="hidden" value="<%=form_authenticity_token%>">
+    
+    
+                    <input type="hidden" name="dish_id" value="<%=dish.id%>">
+                    <input type="hidden" name="user_id" value="<%=current_user.id%>">
+    
+                    <!-- Label and input for venue_id -->
+                    <div class="form-group">
+                      <label for="venue_id" class="control-label sr-only">
+                        Venue
+                      </label>
+                      <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control") %>
+                    </div>
+    
+                    <button class="btn btn-primary btn-sm">
+                      <i class="fa fa-heart"></i>
+                    </button>
+                  </form>
+    
+              </td>
+    
+              <td class="text-right">
+                <span class="label label-primary">
+                  <%= dish.cuisine.name %>
+                </span>
+              </td>
+            
+            <% else %>
+              <td class = "text-left">
+                <a href="/dishes/<%=dish.id%>">
+                  <%= dish.name %>
+                </a>
+              </td>
+    
+              <td class="text-center">
+                  <a href="/venues/<%=Bookmark.find_by(user_id: current_user.id, dish_id: dish.id).venue_id%>">
+                  <%= Venue.find_by(id:Bookmark.find_by(user_id: current_user.id, dish_id: dish.id).venue_id).name %>
+                </span>
+              </td>
+    
+              <td class="text-right">
+                <span class="label label-primary">
+                  <%= dish.cuisine.name %>
+                </span>
+              </td>
+              
+            <% end %>  
+
+            
           </tr>
         <% end %>
       </table>
