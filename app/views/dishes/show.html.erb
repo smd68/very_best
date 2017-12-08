@@ -58,7 +58,7 @@
             <%= venue.name %>
             </a>
             <small class="pull-right text-muted">
-              <%= time_ago_in_words(Bookmark.find_by(user_id: current_user.id, dish_id: @dish.id, venue_id: venue.id).created_at)%> ago
+            
               
               <a href="/bookmarks/<%= venue.bookmarks.find_by(:dish_id => @dish.id).id %>/edit" class="btn btn-warning">
                 <i class="fa fa-fw fa-edit"></i>
