@@ -12,60 +12,77 @@
               </span>
           </h4>
         </div>
+    
       
-        <div class="panel-body">
+        <ul class="list-group">
+          <li class="list-group-item">
           
-        <form action="/create_bookmark" class="form-inline" method="post">
-                  <!-- Hidden input for authenticity token to protect from forgery -->
-                  <input name="authenticity_token" type="hidden" value="<%=form_authenticity_token%>">
-  
-  
-                  <input type="hidden" name="dish_id" value="<%=@dish.id%>">
-                  <input type="hidden" name="user_id" value="<%=current_user.id%>">
-        
-        <div class="row">
-          <label for="venue_id" class="control-label sr-only">
-                      
-          </label>
-          <div class="form-group col-md-6">
-           
-            <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control") %>
-          </div>
+            <form action="/create_bookmark" class="form-inline" method="post">
+                      <!-- Hidden input for authenticity token to protect from forgery -->
+                      <input name="authenticity_token" type="hidden" value="<%=form_authenticity_token%>">
+      
+      
+                      <input type="hidden" name="dish_id" value="<%=@dish.id%>">
+                      <input type="hidden" name="user_id" value="<%=current_user.id%>">
+            
+            <div class="row">
+              <label for="venue_id" class="control-label sr-only">
+                          
+              </label>
+              <div class="form-group col-md-6">
+               
+                <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control") %>
+              </div>
+              
+              <button class="btn btn-primary btn text-right">
+                <i class="fa fa-heart"></i>
+              </button>
           
-         <button class="btn btn-primary btn text-right">
-            <i class="fa fa-heart"></i>
-         </button>
-        
+              <small class="pull-right text-muted">
+                right now
+              </small>  
           
-         </form>
-         </div>
+              
+            </form>
+      </li>
+
         
-        <br>
-        
-        <div class="row">
-          <div class="col-md-12">
-            <ul class="list-group">
+
               
       <% @dish.specialists.each do |venue| %>
         <% if venue.bookmarks.find_by(:user_id => current_user.id).present? %>
+        
         <li class="list-group-item">
-          <p><a href="/venues/<%= venue.id %>">
+          <p>
+            <a href="/venues/<%= venue.id %>">
             <%= venue.name %>
-          </a></p>
-          <div class="btn-group btn-group-xs pull-right">
-            <a href="/bookmarks/<%= venue.bookmarks.find_by(:dish_id => @dish.id).id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
             </a>
-            <a href="/delete_bookmark/<%= venue.bookmarks.find_by(:dish_id => @dish.id).id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
+            <small class="pull-right text-muted">
+              <%= time_ago_in_words(Bookmark.find_by(user_id: current_user.id, dish_id: @dish.id, venue_id: venue.id).created_at)%> ago
+              
+              <a href="/bookmarks/<%= venue.bookmarks.find_by(:dish_id => @dish.id).id %>/edit" class="btn btn-warning">
+                <i class="fa fa-fw fa-edit"></i>
+              </a>
+              <a href="/delete_bookmark/<%= venue.bookmarks.find_by(:dish_id => @dish.id).id %>" class="btn btn-danger" rel="nofollow">
+                <i class="fa fa-fw fa-trash-o"></i>
+              </a>
+            </small>
+          </p>
         </li>
+        
         <% end %>      
       <% end %>
     </ul>
+    
+    <div class="panel-footer text-center">
+      <a href="/dishes" class="btn btn-block btn-default">
+        <i class="fa fa-chevron-left"></i>
+      </a>
+    </div>
+    
   </div>
       </div>
     </div>
   </div>
 </div>
+

@@ -11,12 +11,13 @@
             <small class="text-muted">
               <%= @venue.address_formatted_address %>
             </small>
-          </h4> 
+          </h4>
+        </div>  
         <div>
           <div id="location_map" style="height: 360px;"></div>
         </div>
     
-      <br>
+
       <ul class="list-group">
         <li class="list-group-item list-group-item-success">
           Dishes you loved here
@@ -25,22 +26,25 @@
         <% @venue.specialties.each do |dish| %>
         <% if dish.bookmarks.find_by(:user_id => current_user.id).present? %>
         <li class="list-group-item">
-          <p><a href="/dishes/<%= dish.id %>">
+          <p>
+            <a href="/dishes/<%= dish.id %>">
             <%= dish.name %>
-          </a></p>
-          <div class="btn-group btn-group-xs pull-right">
-            <a href="/bookmarks/<%= dish.bookmarks.find_by(:venue_id => @venue.id).id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
             </a>
-            <a href="/delete_dish/<%= dish.bookmarks.find_by(:venue_id => @venue.id).id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
+            <small class="pull-right text-muted">
+              <%= time_ago_in_words(Bookmark.find_by(user_id: current_user.id, dish_id: dish.id, venue_id: @venue.id).created_at)%> ago
+              
+              <a href="/bookmarks/<%= dish.bookmarks.find_by(:venue_id => @venue.id).id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a href="/delete_dish/<%= dish.bookmarks.find_by(:venue_id => @venue.id).id %>" class="btn btn-danger" rel="nofollow">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </small>
+          </p>
         </li>
         <% end %>      
       <% end %>
     </ul>
-  </div>
 
 
       <li class="list-group-item">
@@ -60,19 +64,31 @@
             <%= select_tag(:dish_id, options_from_collection_for_select(Dish.all, :id, :name), :class => "form-control") %>
           </div>
           
-         <button class="btn btn-primary btn text-right">
+          <button class="btn btn-primary btn text-right">
             <i class="fa fa-heart"></i>
-         </button>
-         </form>
-  
-    <br>
+          </button>
+         
+          <small class="pull-right text-muted">
+           right now
+          </small>  
+        </form>
+      </li>
     
-    <div class="row">
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-success">
-          Popular dishes here
-        </li>
-    </div>
+      <ul class="list-group">
+          <li class="list-group-item list-group-item-success">
+            Popular dishes here
+          </li>
+          
+          <% @venue.specialties.each do |dish| %>
+          <li class="list-group-item">
+            <p>
+              <a href="/dishes/<%= dish.id %>">
+              <%= dish.name %>
+              </a>
+            </p>
+          <% end %>
+          </li>
+                
 
       <div class="panel-footer text-center">
         <a href="/venues" class="btn btn-block btn-default">
@@ -81,8 +97,8 @@
       </div>
 
 
-</div>
-</div>
+    </div>
+  </div>
 </div>
 
 
